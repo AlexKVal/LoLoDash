@@ -9,7 +9,7 @@ module.exports = function worker(orders) {
 
 
   result = _.map(result, function (val, key) {
-    return { article: Number(key), total_orders: val }
+    return { article: parseInt(key), total_orders: val }
   })
 
   return _.sortBy(result, 'total_orders').reverse()
