@@ -1,20 +1,19 @@
 var _ = require('lodash');
 
 module.exports = function worker(list) {
-  var result = {}
+  var res = {}
 
   list = _.sortBy(list, 'income')
 
-  var incomes = _.pluck(list, 'income')
-  result.average = _.reduce(incomes, function(acc, i){return acc + i}, 0) / incomes.length
+  res.average = _.reduce(list, function(acc, i){return acc + i.income}, 0) / list.length
 
-  result.underperform = _.filter(list, function (freelancer) {
-    return freelancer.income <= result.average
+  res.underperform = _.filter(list, function (freelancer) {
+    return freelancer.income <= res.average
   })
 
-  result.overperform = _.filter(list, function (freelancer) {
-    return freelancer.income > result.average
+  res.overperform = _.filter(list, function (freelancer) {
+    return freelancer.income > res.average
   })
 
-  return result
+  return res
 };
